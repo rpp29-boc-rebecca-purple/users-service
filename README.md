@@ -8,11 +8,12 @@
   $ git clone --bare git@github.com:rpp29-boc-rebecca-purple/services_boilerplate.git
 ```
 
-3. Mirror-push to the new repository
+4. Make a new, empty repo in the organization
+6. Mirror-push to the new repository
 
 ```
   $ cd services_boilerplate
-  $ git push --mirror https://github.com/exampleuser/NEW_SERVICE_REPO_NAME.git
+  $ git push --mirror git@github.com:rpp29-boc-rebecca-purple/NEW_REPO_NAME.git
 ```
 
 4. Remove the temporary local repository you created earlier
