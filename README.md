@@ -5,7 +5,7 @@
 2. Create a bare clone of the repository
 
 ```
-  $ git clone --bare git@github.com:rpp29-boc-rebecca-purple/services_boilerplate.git
+  $ git clone --bare git@github.com:rpp29-boc-rebecca-purple/services_boilerplate
 ```
 
 4. Make a new, empty repo in the organization
@@ -13,7 +13,7 @@
 
 ```
   $ cd services_boilerplate
-  $ git push --mirror git@github.com:rpp29-boc-rebecca-purple/NEW_REPO_NAME.git
+  $ git push --mirror git@github.com:rpp29-boc-rebecca-purple/NEW_REPO_NAME
 ```
 
 4. Remove the temporary local repository you created earlier
