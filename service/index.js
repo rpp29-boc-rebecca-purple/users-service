@@ -21,7 +21,6 @@ const getProfile = (userId) => {
     })
     .catch((err) => {
       client.release();
-      console.log(err.stack);
       return null;
     });
 };
@@ -37,7 +36,6 @@ const putEditProfile = (userId, first_name, last_name, age, snack) => {
     })
     .catch((err) => {
       client.release();
-      console.log(err.stack);
       return null;
     });
 };
@@ -53,7 +51,6 @@ const getFriendsList = (userId) => {
     })
     .catch((err) => {
       client.release();
-      console.log(err.stack);
       return null;
     });
 
@@ -76,11 +73,12 @@ const getSearchFriends = (email) => {
 };
 
 const friendFollow = (userId, friendId) => {
+  // Insert query
 
 };
 
 const friendUnfollow = (userId, friendId) => {
-
+  // Insert query
 };
 
 module.exports = {
