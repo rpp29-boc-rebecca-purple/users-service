@@ -25,7 +25,7 @@ const getProfile = (userId) => {
     });
 };
 
-const putEditProfile = (userId, first_name, last_name, age, snack) => {
+const putEditProfile = (userId, first_name, last_name, age, snack, animal_type) => {
   return pool
     .connect()
     .then((client) => {
