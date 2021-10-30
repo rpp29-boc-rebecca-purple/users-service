@@ -25,13 +25,12 @@ module.exports = {
 
   putEditProfile: (req, res) => {
     // Do your stuff here...
-    res.send(200);
+    res.sendStatus(200);
   },
 
   /// FRIENDS CONTROLLERS ///
 
   getFriendsList: (req, res) => {
-    console.log(req.query)
     if (!req.query.userId) {
       res.status(400).send('Missing parameter "userId"');
       return;
@@ -69,12 +68,12 @@ module.exports = {
 
   postFriendFollow: (req, res) => {
     // Do your stuff here...
-    res.send(200);
+    res.sendStatus(200);
   },
 
   putFriendFollow: (req, res) => {
     // Do your stuff here...
-    res.send(200);
+    res.sendStatus(200);
   },
 };
 
