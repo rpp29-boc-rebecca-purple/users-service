@@ -31,7 +31,7 @@ module.exports = {
   /// FRIENDS CONTROLLERS ///
 
   getFriendsList: (req, res) => {
-    console.log(req.query)
+    console.log(req.query);
     if (!req.query.userId) {
       res.status(400).send('Missing parameter "userId"');
       return;
