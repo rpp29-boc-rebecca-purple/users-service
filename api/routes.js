@@ -24,4 +24,6 @@ router.put('/user/friendsList/unfollow', controllers.putFriendFollow);
 // GET request to search for new friends based on provided email address
 router.get('/searchFriend/', controllers.getSearchFriends);
 
+// Testing tests
+
 module.exports = router;
