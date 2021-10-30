@@ -25,9 +25,9 @@
 
 5. Clone the new repo, install npm packages, and complete work as normal
 
-### CircleCI 
+### CircleCI Build and Test
 
-Build-and-test:  [![CircleCI](https://circleci.com/gh/rpp29-boc-rebecca-purple/users-service/tree/main.svg?style=svg)](https://circleci.com/gh/rpp29-boc-rebecca-purple/users-service/tree/main)
+[![CircleCI](https://circleci.com/gh/rpp29-boc-rebecca-purple/users-service/tree/main.svg?style=svg)](https://circleci.com/gh/rpp29-boc-rebecca-purple/users-service/tree/main)
 
 ### Sonar Cloud
 
