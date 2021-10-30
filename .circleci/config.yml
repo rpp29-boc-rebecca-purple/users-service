@@ -8,6 +8,7 @@ orbs:
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/node
   # Also: https://circleci.com/developer/orbs/orb/coveralls/coveralls
   node: circleci/node@4.1
+  jest: blimmer/jest@0.2.1
   #coveralls: coveralls/coveralls@1.0.6
 
 jobs:
@@ -31,7 +32,7 @@ jobs:
       #     pkg-manager: yarn
       - run:
           name: Run tests
-          command: npm test --coverage --runInBand
+          command: jest/test
       - store_artifacts:
           path: coverage
       #- coveralls/upload
