@@ -27,7 +27,7 @@
 
 ### CircleCI 
 
-Build-and-test [![CircleCI](https://circleci.com/gh/rpp29-boc-rebecca-purple/users-service/tree/main.svg?style=svg)](https://circleci.com/gh/rpp29-boc-rebecca-purple/users-service/tree/main)
+Build-and-test:  [![CircleCI](https://circleci.com/gh/rpp29-boc-rebecca-purple/users-service/tree/main.svg?style=svg)](https://circleci.com/gh/rpp29-boc-rebecca-purple/users-service/tree/main)
 
 ### Sonar Cloud
 
