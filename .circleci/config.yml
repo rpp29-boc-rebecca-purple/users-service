@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   run_tests:
     docker:
-      - image: circleci/node:10
+      - image: cimg/node:15.1
       - image: circleci/postgres:9.6.8-alpine-postgis
         environment:
           POSTGRES_USER: $POSTGRES_USER
@@ -13,33 +13,34 @@ jobs:
 
     steps:
       - checkout #alias for git clone\
-      - run:
-          name: Installing psql client
-          command: |
-            sudo apt install postgresql-client
-      - run:
-          name: Waiting for PostgreSQL to start
-          command: |
-            for i in `seq 1 10`;
-            do
-              nc -z localhost 5432 && echo Success && exit 0
-              echo -n .
-              sleep 2
-            done
-            echo Failed waiting for Postgres && exit 1
-      - run:
-          name: Installing postgres contributions
-          command: |
-            sudo apt-get -qq update
-            sudo apt-get -qq install postgresql-contrib
-      - run:
-          name: Restarting postgres
-          command: |
-            sudo service postgresql restart
-      - run:
-          name: Install extensions for postgres
-          command: |
-            psql -U ? -d ? -h localhost -p 5432 -c "CREATE EXTENSION btree_gist;"
+      - node/install-packages
+      # - run:
+      #     name: Installing psql client
+      #     command: |
+      #       sudo apt install postgresql-client
+      # - run:
+      #     name: Waiting for PostgreSQL to start
+      #     command: |
+      #       for i in `seq 1 10`;
+      #       do
+      #         nc -z localhost 5432 && echo Success && exit 0
+      #         echo -n .
+      #         sleep 2
+      #       done
+      #       echo Failed waiting for Postgres && exit 1
+      # - run:
+      #     name: Installing postgres contributions
+      #     command: |
+      #       sudo apt-get -qq update
+      #       sudo apt-get -qq install postgresql-contrib
+      # - run:
+      #     name: Restarting postgres
+      #     command: |
+      #       sudo service postgresql restart
+      # - run:
+      #     name: Install extensions for postgres
+      #     command: |
+      #       psql -U ? -d ? -h localhost -p 5432 -c "CREATE EXTENSION btree_gist;"
       - run:
           name: Install npm dependencies
           command: |
