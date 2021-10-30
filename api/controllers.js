@@ -13,7 +13,7 @@ module.exports = {
     return db.getProfile(req.query.userId)
       .then((response) => {
         if (!response || response.rowCount === 0) {
-          res.status(400).send(`Unable to get user profile based on userId: ${req.query.userId}`);
+          res.status(400).send('Unable to get user profile based on userId');
         } else {
           res.status(200).send(response.rows);
         }
@@ -39,7 +39,7 @@ module.exports = {
     return db.getFriendsList(req.query.userId)
       .then((response) => {
         if (!response || response.rowCount === 0) {
-          res.status(400).send(`Unable to get friends list based on userId: ${req.query.userId}`);
+          res.status(400).send('Unable to get friends list based on userId');
         } else {
           res.status(200).send(response.rows);
         }
@@ -57,7 +57,7 @@ module.exports = {
     return db.getSearchFriends(req.query.email)
       .then((response) => {
         if (!response || response.rowCount === 0) {
-          res.status(400).send(`Unable to get user profile based on email: ${req.query.email}`);
+          res.status(400).send('Unable to get user profile based on email');
         } else {
           res.status(200).send(response.rows);
         }
