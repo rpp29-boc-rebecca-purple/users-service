@@ -6,14 +6,14 @@ module.exports = {
   /// USER CONTROLLERS ///
 
   getProfile: (req, res) => {
-    if (!req.params.userId) {
+    if (!req.query.userId) {
       res.status(400).send('Missing param "userId"');
       return;
     }
-    return db.getProfile(req.params.userId)
+    return db.getProfile(req.query.userId)
       .then((response) => {
         if (!response || response.rowCount === 0) {
-          res.status(400).send(`Unable to get user profile based on userId: ${req.params.userId}`);
+          res.status(400).send(`Unable to get user profile based on userId: ${req.query.userId}`);
         } else {
           res.status(200).send(response.rows);
         }
@@ -31,14 +31,15 @@ module.exports = {
   /// FRIENDS CONTROLLERS ///
 
   getFriendsList: (req, res) => {
-    if (!req.params.userId) {
+    console.log(req.query)
+    if (!req.query.userId) {
       res.status(400).send('Missing parameter "userId"');
       return;
     }
-    return db.getFriendsList(req.params.userId)
+    return db.getFriendsList(req.query.userId)
       .then((response) => {
         if (!response || response.rowCount === 0) {
-          res.status(400).send(`Unable to get friends list based on userId: ${req.params.userId}`);
+          res.status(400).send(`Unable to get friends list based on userId: ${req.query.userId}`);
         } else {
           res.status(200).send(response.rows);
         }
@@ -49,14 +50,14 @@ module.exports = {
   },
 
   getSearchFriends: (req, res) => {
-    if (!req.params.email) {
+    if (!req.query.email) {
       res.status(400).send('Missing parameter "email"');
       return;
     }
-    return db.getSearchFriends(req.params.email)
+    return db.getSearchFriends(req.query.email)
       .then((response) => {
         if (!response || response.rowCount === 0) {
-          res.status(400).send(`Unable to get user profile based on email: ${req.params.email}`);
+          res.status(400).send(`Unable to get user profile based on email: ${req.query.email}`);
         } else {
           res.status(200).send(response.rows);
         }
