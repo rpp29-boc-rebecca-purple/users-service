@@ -18,7 +18,7 @@ describe('User Endpoints', () => {
 
       expect(response.status).toBe(400);
       expect(Array.isArray(response.body)).toBe(false);
-      expect(response.text).toBe('Unable to get user profile based on userId: Rick');
+      expect(response.text).toBe('Unable to get user profile based on userId');
     });
 
     it('should return a 400 status code for missing userId', async () => {
@@ -79,7 +79,7 @@ describe('Friends Endpoints', () => {
 
       expect(response.status).toBe(400);
       expect(Array.isArray(response.body)).toBe(false);
-      expect(response.text).toBe('Unable to get user profile based on email: rick');
+      expect(response.text).toBe('Unable to get user profile based on email');
     });
 
     it('should return a 400 status code for missing email', async () => {
