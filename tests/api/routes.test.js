@@ -5,7 +5,7 @@ const request = supertest(app);
 describe('User Endpoints', () => {
   describe('GET User Profile', () => {
 
-    it('should return a user profile', async () => {
+    xit('should return a user profile', async () => {
       const response = await request.get('/user?userId=Joe');
 
       expect(response.status).toBe(200);
@@ -13,7 +13,7 @@ describe('User Endpoints', () => {
       expect(response.body.length).toBe(1);
     });
 
-    it('should return a 400 status code for invalid userId', async () => {
+    xit('should return a 400 status code for invalid userId', async () => {
       const response = await request.get('/user?userId=Rick');
 
       expect(response.status).toBe(400);
@@ -30,7 +30,7 @@ describe('User Endpoints', () => {
   });
 
   describe('PUT Edit User Profile', () => { // to update
-    it('should return a 200 status', async () => {
+    xit('should return a 200 status', async () => {
       const response = await request.put('/user/edit?userId=Joe');
 
       expect(response.status).toBe(200);
@@ -41,7 +41,7 @@ describe('User Endpoints', () => {
 describe('Friends Endpoints', () => {
   describe('GET Friend List', () => {
 
-    it('should return a 200 status', async () => {
+    xit('should return a 200 status', async () => {
       const response = await request.get('/user/friendsList?userId=Joe');
 
       expect(response.status).toBe(200);
@@ -66,7 +66,7 @@ describe('Friends Endpoints', () => {
 
   describe('GET Search Friend', () => {
 
-    it('should return a user profile based on email', async () => {
+    xit('should return a user profile based on email', async () => {
       const response = await request.get('/searchFriend?email=joe@mama.com');
 
       expect(response.status).toBe(200);
@@ -74,7 +74,7 @@ describe('Friends Endpoints', () => {
       expect(response.body.length).toBe(1);
     });
 
-    it('should return a 400 status code for invalid email', async () => {
+    xit('should return a 400 status code for invalid email', async () => {
       const response = await request.get('/searchFriend?email=rick');
 
       expect(response.status).toBe(400);

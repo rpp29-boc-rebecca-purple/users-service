@@ -67,7 +67,6 @@ const getSearchFriends = (email) => {
     })
     .catch((err) => {
       client.release();
-      console.log(err.stack);
       return null;
     });
 };
@@ -83,7 +82,6 @@ const friendFollow = (userEmail, friendEmail) => {
     })
     .catch((err) => {
       client.release();
-      console.log(err.stack);
       return null;
     });
 };
@@ -99,7 +97,6 @@ const friendUnfollow = (userEmail, friendEmail) => {
     })
     .catch((err) => {
       client.release();
-      console.log(err.stack);
       return null;
     });
 };
