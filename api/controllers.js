@@ -6,14 +6,14 @@ module.exports = {
   /// USER CONTROLLERS ///
 
   getProfile: (req, res) => {
-    if (!req.query.userId) {
-      res.status(400).send('Missing param "userId"');
+    if (!req.query.email) {
+      res.status(400).send('Missing param "email"');
       return;
     }
-    return db.getProfile(req.query.userId)
+    return db.getProfile(req.query.email)
       .then((response) => {
         if (!response || response.rowCount === 0) {
-          res.status(400).send('Unable to get user profile based on userId');
+          res.status(400).send('Unable to get user profile based on email');
         } else {
           res.status(200).send(response.rows);
         }
@@ -24,21 +24,30 @@ module.exports = {
   },
 
   putEditProfile: (req, res) => {
-    // Do your stuff here...
-    res.sendStatus(200);
+    return db.putEditProfile(req.query.data)
+      .then((response) => {
+        if (!response || response.rowCount === 0) {
+          res.status(400).send('Unable to update user profile based on data');
+        } else {
+          res.status(200).send(response.rows);
+        }
+      })
+      .catch((err) => {
+        res.status(400).send('PUT EDIT USER PROFILE ERROR: ', err);
+      });
   },
 
   /// FRIENDS CONTROLLERS ///
 
   getFriendsList: (req, res) => {
-    if (!req.query.userId) {
-      res.status(400).send('Missing parameter "userId"');
+    if (!req.query.email) {
+      res.status(400).send('Missing parameter "email"');
       return;
     }
-    return db.getFriendsList(req.query.userId)
+    return db.getFriendsList(req.query.email)
       .then((response) => {
         if (!response || response.rowCount === 0) {
-          res.status(400).send('Unable to get friends list based on userId');
+          res.status(400).send('Unable to get friends list based on email');
         } else {
           res.status(200).send(response.rows);
         }
@@ -67,13 +76,37 @@ module.exports = {
   },
 
   postFriendFollow: (req, res) => {
-    // Do your stuff here...
-    res.sendStatus(200);
+    if (!req.query.userEmail || !req.query.friendEmail) {
+      res.status(400).send('Missing one or more email parameters');
+    }
+    return db.postFriendFollow(req.query.userEmail, req.query.friendEmail)
+      .then((response) => {
+        if (!response || response.rowCount === 0) {
+          res.status(400).send('Unable to follow user based on friend email');
+        } else {
+          res.status(200).send(response.rows);
+        }
+      })
+      .catch((err) => {
+        res.status(400).send('POST FRIEND FOLLOW ERROR: ', err);
+      });
   },
 
   putFriendFollow: (req, res) => {
-    // Do your stuff here...
-    res.sendStatus(200);
+    if (!req.query.userEmail || !req.query.friendEmail) {
+      res.status(400).send('Missing one or more email parameters');
+    }
+    return db.putFriendFollow(req.query.userEmail, req.query.friendEmail)
+      .then((response) => {
+        if (!response || response.rowCount === 0) {
+          res.status(400).send('Unable to unfollow friend based on friend email');
+        } else {
+          res.status(200).send(response.rows);
+        }
+      })
+      .catch((err) => {
+        res.status(400).send('PUT FRIEND FOLLOW ERROR: ', err);
+      });
   },
 };
 
