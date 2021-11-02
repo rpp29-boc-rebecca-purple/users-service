@@ -10,12 +10,12 @@ const pool = new Pool({
   port: process.env.POSTGRES_PORT
 });
 
-const getProfile = (userId) => {
+const getProfile = (email) => {
   return pool
     .connect()
     .then((client) => {
-      const query = 'SELECT * FROM users WHERE first_name = $1'; // to update userId param
-      const values = [userId];
+      const query = 'SELECT * FROM users WHERE email = $1';
+      const values = [email];
       client.release();
       return client.query(query, values);
     })
@@ -25,12 +25,12 @@ const getProfile = (userId) => {
     });
 };
 
-const putEditProfile = (userId, first_name, last_name, age, snack, animal_type) => {
+const putEditProfile = (email, first_name, last_name, age, snack) => {
   return pool
     .connect()
     .then((client) => {
-      const query = 'UPDATE users SET last_name = $3, age = $4 WHERE first_name = $2'; // to update userId params
-      const values = [userId, first_name, last_name, age, snack];
+      const query = 'UPDATE users SET first_name = $2, last_name = $3, age = $4, snack = $5, animal_type = $6 WHERE email = $1'; // to update userId params
+      const values = [email, first_name, last_name, age, snack, animal_type];
       client.release();
       return client.query(query, values);
     })
@@ -40,12 +40,12 @@ const putEditProfile = (userId, first_name, last_name, age, snack, animal_type) 
     });
 };
 
-const getFriendsList = (userId) => {
+const getFriendsList = (email) => {
   return pool
     .connect()
     .then((client) => {
-      const query = 'SELECT first_name, last_name, thumbnail FROM users WHERE first_name = $1'; // to update params
-      const values = [userId];
+      const query = 'SELECT first_name, last_name, thumbnail FROM users AS u INNER JOIN friendship AS fs ON u.email = fs.friendEmail WHERE fs.userEmail = $1';
+      const values = [email];
       client.release();
       return client.query(query, values);
     })
@@ -72,13 +72,36 @@ const getSearchFriends = (email) => {
     });
 };
 
-const friendFollow = (userId, friendId) => {
-  // Insert query
-
+const friendFollow = (userEmail, friendEmail) => {
+  return pool
+    .connect()
+    .then((client) => {
+      const query = 'INSERT INTO friendship (user, friend) VALUES ($1, $2)';
+      const values = [userEmail, friendEmail];
+      client.release();
+      return client.query(query, values);
+    })
+    .catch((err) => {
+      client.release();
+      console.log(err.stack);
+      return null;
+    });
 };
 
-const friendUnfollow = (userId, friendId) => {
-  // Insert query
+const friendUnfollow = (userEmail, friendEmail) => {
+  return pool
+    .connect()
+    .then((client) => {
+      const query = 'DELETE FROM friendship WHERE userEmail = $1 AND friendEmail = $2';
+      const values = [userEmail, friendEmail];
+      client.release();
+      return client.query(query, values);
+    })
+    .catch((err) => {
+      client.release();
+      console.log(err.stack);
+      return null;
+    });
 };
 
 module.exports = {

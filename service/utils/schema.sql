@@ -1,25 +1,29 @@
-CREATE TABLE users (
-  userId INT NOT NULL,
-  username VARCHAR NOT NULL,
-  firstName VARCHAR NOT NULL,
-  lastName VARCHAR NOT NULL,
-  email VARCHAR NOT NULL UNIQUE,
-  age: INT,
-  snack: VARCHAR,
-  password_hash VARCHAR,
-  followers INT NOT NULL DEFAULT 0,
-  following INT NOT NULL DEFAULT 0,
+DROP TABLE IF EXISTS friendship;
+DROP TABLE IF EXISTS users;
 
-  PRIMARY KEY (username)
+CREATE TABLE users (
+    username varchar not null,
+    first_name varchar,
+    last_name varchar,
+    email varchar not null unique,
+    age int,
+    snack varchar,
+    follower_count int not null default 0,
+    following_count int not null default 0,
+    thumbnail bytea,
+    oauth boolean default false,
+    password_hash varchar not null
 );
 
-CREATE TABLE follow (
-  follower VARCHAR NOT NULL,
-  following VARCHAR NOT NULL,
+CREATE TABLE friendship (
+  friendshipId SERIAL,
+  userEmail VARCHAR,
+  friendEmail VARCHAR,
+  CreatedDateTime TIMESTAMP,
 
-  PRIMARY KEY (follower, following),
-  FOREIGN KEY (follower) REFERENCES users(username)
+  CONSTRAINT fk_friendship PRIMARY KEY (userEmail, friendEmail),
+  CONSTRAINT fk_user FOREIGN KEY (userEmail) REFERENCES users(email)
   ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (following) REFERENCES users(username)
+  CONSTRAINT fk_friend FOREIGN KEY (friendEmail) REFERENCES users(email)
   ON DELETE CASCADE ON UPDATE CASCADE
 );
