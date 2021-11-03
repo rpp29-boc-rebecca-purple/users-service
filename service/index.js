@@ -25,12 +25,12 @@ const getProfile = (email) => {
     });
 };
 
-const putEditProfile = (email, first_name, last_name, age, snack) => {
+const putEditProfile = (email, first_name, last_name, age, snack, animal_type) => {
   return pool
     .connect()
     .then((client) => {
-      const query = 'UPDATE users SET first_name = $2, last_name = $3, age = $4, snack = $5, animal_type = $6 WHERE email = $1'; // to update userId params
-      const values = [email, first_name, last_name, age, snack, animal_type];
+      const query = 'UPDATE users SET first_name = $2, last_name = $3, age = $4, snack = $5, animal_type = $6 WHERE email = $1';
+      const values = [email, first_name, last_name, age, snack];
       client.release();
       return client.query(query, values);
     })
@@ -75,7 +75,7 @@ const friendFollow = (userEmail, friendEmail) => {
   return pool
     .connect()
     .then((client) => {
-      const query = 'INSERT INTO friendship (user, friend) VALUES ($1, $2)';
+      const query = 'INSERT INTO friendship (userEmail, friendEmail) VALUES ($1, $2)';
       const values = [userEmail, friendEmail];
       client.release();
       return client.query(query, values);
