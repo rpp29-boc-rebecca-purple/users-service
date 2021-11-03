@@ -16,7 +16,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE friendship (
-  friendshipId SERIAL,
+  friendshipId SERIAL UNIQUE,
   userEmail VARCHAR,
   friendEmail VARCHAR,
   CreatedDateTime TIMESTAMP,

@@ -5,23 +5,23 @@ const request = supertest(app);
 describe('User Endpoints', () => {
   describe('GET User Profile', () => {
 
-    xit('should return a user profile', async () => {
-      const response = await request.get('/user?userId=Joe');
+    it('should return a user profile', async () => {
+      const response = await request.get('/user?email=meow@dog.com');
 
       expect(response.status).toBe(200);
       expect(Array.isArray(response.body)).toBe(true);
       expect(response.body.length).toBe(1);
     });
 
-    xit('should return a 400 status code for invalid userId', async () => {
-      const response = await request.get('/user?userId=Rick');
+    it('should return a 400 status code for invalid email', async () => {
+      const response = await request.get('/user?email=Rick');
 
       expect(response.status).toBe(400);
       expect(Array.isArray(response.body)).toBe(false);
-      expect(response.text).toBe('Unable to get user profile based on userId');
+      expect(response.text).toBe('Unable to get user profile based on email');
     });
 
-    it('should return a 400 status code for missing userId', async () => {
+    it('should return a 400 status code for missing email', async () => {
       const response = await request.get('/user/');
 
       expect(response.status).toBe(400);
@@ -31,33 +31,32 @@ describe('User Endpoints', () => {
 
   describe('PUT Edit User Profile', () => { // to update
     xit('should return a 200 status', async () => {
-      const response = await request.put('/user/edit?userId=Joe');
-
+      const response = await request.put('/user/edit?email=meow@dog.com').send({ first_name: 'Jest', last_name: 'Jester', age: '123', snack: 'those green eyes of yours' });
       expect(response.status).toBe(200);
     });
   });
 });
 
 describe('Friends Endpoints', () => {
-  describe('GET Friend List', () => {
+  xdescribe('GET Friend List', () => {
 
-    xit('should return a 200 status', async () => {
-      const response = await request.get('/user/friendsList?userId=Joe');
+    it('should return a 200 status', async () => {
+      const response = await request.get('/user/friendsList?email=Joe');
 
       expect(response.status).toBe(200);
       expect(Array.isArray(response.body)).toBe(true);
       expect(response.body.length).toBe(1);
     });
 
-    it('should return a 400 status code for invalid userId', async () => {
-      const response = await request.get('/user/friendsList?userId=Rick');
+    it('should return a 400 status code for invalid email', async () => {
+      const response = await request.get('/user/friendsList?email=Rick');
 
       expect(response.status).toBe(400);
       expect(Array.isArray(response.body)).toBe(false);
     });
 
-    xit('should return an empty array for an empty friends list', async () => {
-      const response = await request.get('/user/friendsList?userId=Joe');
+    it('should return an empty array for an empty friends list', async () => {
+      const response = await request.get('/user/friendsList?email=Joe');
 
       expect(response.status).toBe(404);
       expect(Array.isArray(response.body)).toBe(false);
@@ -66,15 +65,15 @@ describe('Friends Endpoints', () => {
 
   describe('GET Search Friend', () => {
 
-    xit('should return a user profile based on email', async () => {
-      const response = await request.get('/searchFriend?email=joe@mama.com');
+    it('should return a user profile based on email', async () => {
+      const response = await request.get('/searchFriend?email=chirp@dog.com');
 
       expect(response.status).toBe(200);
       expect(Array.isArray(response.body)).toBe(true);
       expect(response.body.length).toBe(1);
     });
 
-    xit('should return a 400 status code for invalid email', async () => {
+    it('should return a 400 status code for invalid email', async () => {
       const response = await request.get('/searchFriend?email=rick');
 
       expect(response.status).toBe(400);
@@ -91,14 +90,14 @@ describe('Friends Endpoints', () => {
   });
 
   xdescribe('POST/PUT Follow Friend', () => {
-    it('should return a 400 status code for invalid userId', async () => {
+    it('should return a 400 status code for invalid email', async () => {
       const response = await request.put('/user/friendsList/follow');
 
       expect(response.status).toBe(400);
       expect(Array.isArray(response.body)).toBe(false);
     });
 
-    it('should return a 404 status code for missing userId', async () => {
+    it('should return a 404 status code for missing email', async () => {
       const response = await request.get('/user/');
 
       expect(response.status).toBe(404);

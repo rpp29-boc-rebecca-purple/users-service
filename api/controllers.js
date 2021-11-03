@@ -24,16 +24,16 @@ module.exports = {
   },
 
   putEditProfile: (req, res) => {
-    return db.putEditProfile(req.query.data)
+    return db.putEditProfile(req.query.email, req.body.data.first_name, req.body.data.last_name, req.body.data.age, req.body.data.snack, req.body.data.animal_type)
       .then((response) => {
         if (!response || response.rowCount === 0) {
-          res.status(400).send('Unable to update user profile based on data');
+          res.status(400).json('Unable to update user profile based on data');
         } else {
-          res.status(200).send(response.rows);
+          res.status(200).json(response.rows);
         }
       })
       .catch((err) => {
-        res.status(400).send('PUT EDIT USER PROFILE ERROR: ', err);
+        res.status(400).json('PUT EDIT USER PROFILE ERROR: ', err);
       });
   },
 
