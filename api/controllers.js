@@ -18,7 +18,7 @@ module.exports = {
         }
       })
       .catch((err) => {
-        res.status(400).send('GET USER PROFILE ERROR: ', err);
+        res.status(400).send(err);
       });
   },
 
@@ -56,7 +56,7 @@ module.exports = {
         }
       })
       .catch((err) => {
-        res.status(400).send('GET FRIEND LIST ERROR: ', err);
+        res.status(400).send(err);
       });
   },
 
@@ -74,7 +74,7 @@ module.exports = {
         }
       })
       .catch((err) => {
-        res.status(400).send('GET SEARCH FRIENDS ERROR: ', err);
+        res.status(400).send(err);
       });
   },
 
@@ -95,7 +95,7 @@ module.exports = {
           }
         })
         .catch((err) => {
-          res.status(400).send('POST FRIEND FOLLOW ERROR: ', err);
+          res.status(400).send(err);
         });
     }
   },
@@ -113,7 +113,7 @@ module.exports = {
         }
       })
       .catch((err) => {
-        res.status(400).send('PUT FRIEND FOLLOW ERROR: ', err);
+        res.status(400).send(err);
       });
   },
 };
