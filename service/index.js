@@ -6,16 +6,17 @@ const pool = new Pool({
   user: process.env.POSTGRES_USER,
   host: process.env.POSTGRES_HOST,
   database: process.env.POSTGRES_DB,
-  password: process.env.POSTGRES_PASSWORD,
+  // password: process.env.POSTGRES_PASSWORD,
   port: process.env.POSTGRES_PORT
 });
 
-const getProfile = (email) => {
+const getProfile = (user_id) => {
   return pool
     .connect()
     .then((client) => {
-      const query = 'SELECT * FROM users WHERE email = $1';
-      const values = [email];
+      console.log('index', user_id);
+      const query = 'SELECT * FROM users WHERE user_id = $1';
+      const values = [user_id];
       client.release();
       return client.query(query, values);
     })
@@ -25,12 +26,12 @@ const getProfile = (email) => {
     });
 };
 
-const putEditProfile = (email, first_name, last_name, age, snack, animal_type) => {
+const putEditProfile = (user_id, first_name, last_name, age, snack, animal_type) => {
   return pool
     .connect()
     .then((client) => {
-      const query = 'UPDATE users SET first_name = $2, last_name = $3, age = $4, snack = $5, animal_type = $6 WHERE email = $1';
-      const values = [email, first_name, last_name, age, snack];
+      const query = 'UPDATE users SET first_name = $2, last_name = $3, age = $4, snack = $5, animal_type = $6 WHERE user_id = $1';
+      const values = [user_id, first_name, last_name, age, snack, animal_type];
       client.release();
       return client.query(query, values);
     })
@@ -40,12 +41,12 @@ const putEditProfile = (email, first_name, last_name, age, snack, animal_type) =
     });
 };
 
-const getFriendsList = (email) => {
+const getFriendsList = (user_id) => {
   return pool
     .connect()
     .then((client) => {
-      const query = 'SELECT first_name, last_name, thumbnail FROM users AS u INNER JOIN friendship AS fs ON u.email = fs.friendEmail WHERE fs.userEmail = $1';
-      const values = [email];
+      const query = 'SELECT first_name, last_name, thumbnail FROM users AS u INNER JOIN friendship AS fs ON u.user_id = fs.friend_id WHERE fs.user_id = $1';
+      const values = [user_id];
       client.release();
       return client.query(query, values);
     })
@@ -56,12 +57,12 @@ const getFriendsList = (email) => {
 
 };
 
-const getSearchFriends = (email) => {
+const getSearchFriends = (user_id) => {
   return pool
     .connect()
     .then((client) => {
-      const query = 'SELECT * FROM users WHERE email = $1';
-      const values = [email];
+      const query = 'SELECT * FROM users WHERE user_id = $1';
+      const values = [user_id];
       client.release();
       return client.query(query, values);
     })
@@ -71,12 +72,12 @@ const getSearchFriends = (email) => {
     });
 };
 
-const friendFollow = (userEmail, friendEmail) => {
+const friendFollow = (user_id, friend_id) => {
   return pool
     .connect()
     .then((client) => {
-      const query = 'INSERT INTO friendship (userEmail, friendEmail) VALUES ($1, $2)';
-      const values = [userEmail, friendEmail];
+      const query = 'INSERT INTO friendship (user_id, friend_id) VALUES ($1, $2)';
+      const values = [user_id, friend_id];
       client.release();
       return client.query(query, values);
     })
@@ -86,12 +87,12 @@ const friendFollow = (userEmail, friendEmail) => {
     });
 };
 
-const friendUnfollow = (userEmail, friendEmail) => {
+const friendUnfollow = (user_id, friend_id) => {
   return pool
     .connect()
     .then((client) => {
-      const query = 'DELETE FROM friendship WHERE userEmail = $1 AND friendEmail = $2';
-      const values = [userEmail, friendEmail];
+      const query = 'DELETE FROM friendship WHERE user_id = $1 AND friend_id = $2';
+      const values = [user_id, friend_id];
       client.release();
       return client.query(query, values);
     })
