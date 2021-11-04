@@ -16,10 +16,10 @@ router.put('/user/edit', controllers.putEditProfile);
 router.get('/user/friendsList', controllers.getFriendsList);
 
 // POST request to follow a new friend
-router.post('/user/friendsList/follow', controllers.postFriendFollow);
+router.post('/user/friendsList/follow', controllers.friendFollow);
 
 // PUT request to unfollow a friend
-router.put('/user/friendsList/unfollow', controllers.putFriendFollow);
+router.put('/user/friendsList/unfollow', controllers.friendUnfollow);
 
 // GET request to search for new friends based on provided email address
 router.get('/searchFriend/', controllers.getSearchFriends);
