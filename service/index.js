@@ -6,7 +6,7 @@ const pool = new Pool({
   user: process.env.POSTGRES_USER,
   host: process.env.POSTGRES_HOST,
   database: process.env.POSTGRES_DB,
-  // password: process.env.POSTGRES_PASSWORD,
+  password: process.env.POSTGRES_PASSWORD,
   port: process.env.POSTGRES_PORT
 });
 
@@ -81,6 +81,18 @@ const friendFollow = (user_id, friend_id) => {
       client.release();
       return client.query(query, values);
     })
+    .then((client) => {
+      const query = 'UPDATE users SET following_count = following_count+1 WHERE user_id = $1';
+      const values = [user_id];
+      client.release();
+      return client.query(query, values);
+    })
+    .then((client) => {
+      const query = 'UPDATE users SET follower_count = follower_count+1 WHERE user_id = $1';
+      const values = [friend_id];
+      client.release();
+      return client.query(query, values);
+    })
     .catch((err) => {
       client.release();
       return null;
@@ -93,6 +105,18 @@ const friendUnfollow = (user_id, friend_id) => {
     .then((client) => {
       const query = 'DELETE FROM friendship WHERE user_id = $1 AND friend_id = $2';
       const values = [user_id, friend_id];
+      client.release();
+      return client.query(query, values);
+    })
+    .then((client) => {
+      const query = 'UPDATE users SET following_count = following_count-1 WHERE user_id = $1';
+      const values = [user_id];
+      client.release();
+      return client.query(query, values);
+    })
+    .then((client) => {
+      const query = 'UPDATE users SET follower_count = follower_count-1 WHERE user_id = $1';
+      const values = [friend_id];
       client.release();
       return client.query(query, values);
     })
