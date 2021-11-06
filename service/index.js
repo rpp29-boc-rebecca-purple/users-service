@@ -81,7 +81,7 @@ const friendFollow = (user_id, friend_id) => {
       return client.query(query, values);
     })
     .then((client) => {
-      const query = 'UPDATE users SET following_count = following_count+1 WHERE user_id = $1';
+      const query = 'UPDATE users SET following_count = (SELECT COUNT (*) FROM friendship f WHERE f.user_id = $1)';
       const values = [user_id];
       client.release();
       return client.query(query, values);
