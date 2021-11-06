@@ -22,12 +22,26 @@ module.exports = {
       });
   },
 
+  getAllProfiles: (req, res) => {
+    return db.getAllProfiles()
+      .then((response) => {
+        if (!response || response.rowCount === 0) {
+          res.status(400).send('Unable to get all users');
+        } else {
+          res.status(200).send(response.rows);
+        }
+      })
+      .catch((err) => {
+        res.status(400).send(err);
+      });
+  },
+
   putEditProfile: (req, res) => {
     if (!req.query.user_id) {
       res.status(400).send('Missing parameter "user_id"');
       return;
     }
-    return db.putEditProfile(req.query.user_id, req.body.data.first_name, req.body.data.last_name, req.body.data.age, req.body.data.snack, req.body.data.animal_type)
+    return db.putEditProfile(req.query.user_id, req.body.data.first_name, req.body.data.last_name, req.body.data.age, req.body.data.snack, req.body.data.animal_type, req.data.body.thumbnail)
       .then((response) => {
         if (!response || response.rowCount === 0) {
           res.status(400).json('Unable to update user profile based on data');
@@ -43,14 +57,14 @@ module.exports = {
   /// FRIENDS CONTROLLERS ///
 
   getFriendsList: (req, res) => {
-    if (!req.query.user_id) {
+    if (!req.query.email) {
       res.status(400).send('Missing parameter "user_id"');
       return;
     }
-    return db.getFriendsList(req.query.user_id)
+    return db.getFriendsList(req.query.email)
       .then((response) => {
         if (!response) {
-          res.status(400).send('Unable to get friends list based on user_id');
+          res.status(400).send('Unable to get friends list based on email');
         } else {
           res.status(200).send(response.rows);
         }
