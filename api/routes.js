@@ -6,8 +6,6 @@ const controllers = require('./controllers');
 // GET request to render user profile information based on provided user ID
 router.get('/user/', controllers.getProfile);
 
-router.get('/users/', controllers.getAllProfiles);
-
 // PUT request to update the user profile (provided userID must match currently logged in user)
 router.put('/user/edit', controllers.putEditProfile);
 

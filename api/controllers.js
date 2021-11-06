@@ -22,20 +22,6 @@ module.exports = {
       });
   },
 
-  getAllProfiles: (req, res) => {
-    return db.getAllProfiles()
-      .then((response) => {
-        if (!response || response.rowCount === 0) {
-          res.status(400).send('Unable to get all users');
-        } else {
-          res.status(200).send(response.rows);
-        }
-      })
-      .catch((err) => {
-        res.status(400).send(err);
-      });
-  },
-
   putEditProfile: (req, res) => {
     if (!req.query.user_id) {
       res.status(400).send('Missing parameter "user_id"');

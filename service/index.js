@@ -25,20 +25,6 @@ const getProfile = (user_id) => {
     });
 };
 
-const getAllProfiles = () => {
-  return pool
-    .connect()
-    .then((client) => {
-      const query = 'SELECT * FROM users';
-      client.release();
-      return client.query(query);
-    })
-    .catch((err) => {
-      client.release();
-      return null;
-    });
-};
-
 const putEditProfile = (user_id, first_name, last_name, age, snack, animal_type, thumbnail) => {
   return pool
     .connect()
@@ -141,7 +127,6 @@ const friendUnfollow = (user_id, friend_id) => {
 
 module.exports = {
   getProfile,
-  getAllProfiles,
   putEditProfile,
   getFriendsList,
   getSearchFriends,
