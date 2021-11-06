@@ -43,14 +43,14 @@ module.exports = {
   /// FRIENDS CONTROLLERS ///
 
   getFriendsList: (req, res) => {
-    if (!req.query.email) {
+    if (!req.query.user_id) {
       res.status(400).send('Missing parameter "user_id"');
       return;
     }
-    return db.getFriendsList(req.query.email)
+    return db.getFriendsList(req.query.user_id)
       .then((response) => {
         if (!response) {
-          res.status(400).send('Unable to get friends list based on email');
+          res.status(400).send('Unable to get friends list based on user_id');
         } else {
           res.status(200).send(response.rows);
         }
@@ -61,14 +61,14 @@ module.exports = {
   },
 
   getSearchFriends: (req, res) => {
-    if (!req.query.user_id) {
-      res.status(400).send('Missing parameter "user_id"');
+    if (!req.query.email) {
+      res.status(400).send('Missing parameter "email"');
       return;
     }
-    return db.getSearchFriends(req.query.user_id)
+    return db.getSearchFriends(req.query.email)
       .then((response) => {
         if (!response || response.rowCount === 0) {
-          res.status(400).send('Unable to get user profile based on user_id');
+          res.status(400).send('Unable to get user profile based on email');
         } else {
           res.status(200).send(response.rows);
         }
