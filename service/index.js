@@ -14,7 +14,6 @@ const getProfile = (user_id) => {
   return pool
     .connect()
     .then((client) => {
-      console.log('index', user_id);
       const query = 'SELECT * FROM users WHERE user_id = $1';
       const values = [user_id];
       client.release();
@@ -26,12 +25,12 @@ const getProfile = (user_id) => {
     });
 };
 
-const putEditProfile = (user_id, first_name, last_name, age, snack, animal_type) => {
+const putEditProfile = (user_id, first_name, last_name, age, snack, animal_type, thumbnail) => {
   return pool
     .connect()
     .then((client) => {
-      const query = 'UPDATE users SET first_name = $2, last_name = $3, age = $4, snack = $5, animal_type = $6 WHERE user_id = $1';
-      const values = [user_id, first_name, last_name, age, snack, animal_type];
+      const query = 'UPDATE users SET first_name = $2, last_name = $3, age = $4, snack = $5, animal_type = $6, thumbnail = $7 WHERE user_id = $1';
+      const values = [user_id, first_name, last_name, age, snack, animal_type, thumbnail];
       client.release();
       return client.query(query, values);
     })
@@ -45,7 +44,7 @@ const getFriendsList = (user_id) => {
   return pool
     .connect()
     .then((client) => {
-      const query = 'SELECT first_name, last_name, thumbnail FROM users AS u INNER JOIN friendship AS fs ON u.user_id = fs.friend_id WHERE fs.user_id = $1';
+      const query = 'SELECT first_name, last_name, thumbnail, follower_count, following_count FROM users AS u INNER JOIN friendship AS fs ON u.user_id = fs.friend_id WHERE fs.user_id = $1';
       const values = [user_id];
       client.release();
       return client.query(query, values);
@@ -57,12 +56,12 @@ const getFriendsList = (user_id) => {
 
 };
 
-const getSearchFriends = (user_id) => {
+const getSearchFriends = (email) => {
   return pool
     .connect()
     .then((client) => {
-      const query = 'SELECT * FROM users WHERE user_id = $1';
-      const values = [user_id];
+      const query = 'SELECT * FROM users WHERE email = $1';
+      const values = [email];
       client.release();
       return client.query(query, values);
     })

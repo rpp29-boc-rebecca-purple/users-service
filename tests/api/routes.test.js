@@ -5,7 +5,7 @@ const request = supertest(app);
 describe('User Endpoints', () => {
   describe('GET User Profile', () => {
 
-    it('should return a user profile', async () => {
+    xit('should return a user profile', async () => {
       const response = await request.get('/user?user_id=1');
 
       expect(response.status).toBe(200);
@@ -30,7 +30,7 @@ describe('User Endpoints', () => {
   });
 
   describe('PUT Edit User Profile', () => {
-    it('should return a 200 status', async () => {
+    xit('should return a 200 status', async () => {
       const response = await request.put('/user/edit?user_id=1').send({ data: {first_name: 'Jest', last_name: 'Jester', age: 123, snack: 'those green eyes of yours', animal_type: 'snek' }});
       expect(response.status).toBe(200);
     });
@@ -40,7 +40,7 @@ describe('User Endpoints', () => {
 describe('Friends Endpoints', () => {
   describe('GET Friend List', () => {
 
-    it('should return a 200 status', async () => {
+    xit('should return a 200 status', async () => {
       const response = await request.get('/user/friendsList?user_id=2');
 
       expect(response.status).toBe(200);
@@ -48,7 +48,7 @@ describe('Friends Endpoints', () => {
       // expect(response.body.length).toBe(1);
     });
 
-    it('should return an empty array for an empty friends list', async () => {
+    xit('should return an empty array for an empty friends list', async () => {
       const response = await request.get('/user/friendsList?user_id=3');
 
       expect(response.status).toBe(200);
@@ -57,7 +57,7 @@ describe('Friends Endpoints', () => {
     });
   });
 
-  describe('GET Search Friend', () => {
+  xdescribe('GET Search Friend', () => {
 
     it('should return a user profile based on user_id', async () => {
       const response = await request.get('/searchFriend?user_id=2');
@@ -83,7 +83,7 @@ describe('Friends Endpoints', () => {
     });
   });
 
-  describe('POST Follow Friend', () => {
+  xdescribe('POST Follow Friend', () => {
     it('should return a 404 status code for invalid user_id', async () => {
       const response = await request.put('/user/friendsList/follow');
 
