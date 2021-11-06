@@ -77,24 +77,22 @@ const friendFollow = (user_id, friend_id) => {
     .then((client) => {
       const query = 'INSERT INTO friendship (user_id, friend_id) VALUES ($1, $2)';
       const values = [user_id, friend_id];
-      client.release();
-      return client.query(query, values);
-    })
-    .then((client) => {
-      const query = 'UPDATE users SET following_count = (SELECT COUNT (*) FROM friendship f WHERE f.user_id = $1)';
-      const values = [user_id];
-      client.release();
-      return client.query(query, values);
-    })
-    .then((client) => {
-      const query = 'UPDATE users SET follower_count = follower_count+1 WHERE user_id = $1';
-      const values = [friend_id];
-      client.release();
-      return client.query(query, values);
-    })
-    .catch((err) => {
-      client.release();
-      return null;
+      return client.query(query, values)
+        .then((response) => {
+          const query2 = 'UPDATE users SET following_count = (SELECT COUNT (*) FROM friendship f WHERE f.user_id = $1) WHERE user_id = $1';
+          const values2 = [user_id];
+          return client.query(query2, values2);
+        })
+        .then((response) => {
+          const query3 = 'UPDATE users SET follower_count = (SELECT COUNT (*) FROM friendship f WHERE f.friend_id = $1) WHERE user_id = $1';
+          const values3 = [friend_id];
+          client.release();
+          return client.query(query3, values3);
+        })
+        .catch((err) => {
+          client.release();
+          return null;
+        });
     });
 };
 
@@ -104,24 +102,22 @@ const friendUnfollow = (user_id, friend_id) => {
     .then((client) => {
       const query = 'DELETE FROM friendship WHERE user_id = $1 AND friend_id = $2';
       const values = [user_id, friend_id];
-      client.release();
-      return client.query(query, values);
-    })
-    .then((client) => {
-      const query = 'UPDATE users SET following_count = following_count-1 WHERE user_id = $1';
-      const values = [user_id];
-      client.release();
-      return client.query(query, values);
-    })
-    .then((client) => {
-      const query = 'UPDATE users SET follower_count = follower_count-1 WHERE user_id = $1';
-      const values = [friend_id];
-      client.release();
-      return client.query(query, values);
-    })
-    .catch((err) => {
-      client.release();
-      return null;
+      return client.query(query, values)
+        .then((response) => {
+          const query2 = 'UPDATE users SET following_count = (SELECT COUNT (*) FROM friendship f WHERE f.user_id = $1) WHERE user_id = $1';
+          const values2 = [friend_id];
+          return client.query(query2, values2);
+        })
+        .then((response) => {
+          const query3 = 'UPDATE users SET follower_count = (SELECT COUNT (*) FROM friendship f WHERE f.friend_id = $1) WHERE user_id = $1';
+          const values3 = [user_id];
+          client.release();
+          return client.query(query3, values3);
+        })
+        .catch((err) => {
+          client.release();
+          return null;
+        });
     });
 };
 
