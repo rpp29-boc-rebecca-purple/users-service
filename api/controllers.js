@@ -88,8 +88,8 @@ module.exports = {
     } else {
       return db.friendFollow(req.query.user_id, req.query.friend_id)
         .then((response) => {
-          if (!response || response.rowCount === 0) {
-            res.status(400).send('Unable to follow user based on friend id');
+          if (!response) {
+            res.status(400).send('Unable to follow user based on the id parameters');
           } else {
             res.status(200).send('Stalking successful');
           }
