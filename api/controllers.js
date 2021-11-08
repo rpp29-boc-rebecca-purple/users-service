@@ -23,11 +23,12 @@ module.exports = {
   },
 
   putEditProfile: (req, res) => {
+    console.log('req:', req.body)
     if (!req.query.user_id) {
       res.status(400).send('Missing parameter "user_id"');
       return;
     }
-    return db.putEditProfile(req.query.user_id, req.body.data.first_name, req.body.data.last_name, req.body.data.age, req.body.data.snack, req.body.data.animal_type, req.data.body.thumbnail)
+    return db.putEditProfile(req.query.user_id, req.body.data.first_name, req.body.data.last_name, req.body.data.age, req.body.data.snack, req.body.data.animal_type, req.body.data.thumbnail)
       .then((response) => {
         if (!response || response.rowCount === 0) {
           res.status(400).json('Unable to update user profile based on data');
@@ -36,6 +37,7 @@ module.exports = {
         }
       })
       .catch((err) => {
+        console.log('err:', err)
         res.status(400).json(err);
       });
   },
