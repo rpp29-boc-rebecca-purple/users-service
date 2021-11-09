@@ -44,7 +44,7 @@ const getFriendsList = (user_id) => {
   return pool
     .connect()
     .then((client) => {
-      const query = 'SELECT first_name, last_name, thumbnail, follower_count, following_count FROM users AS u INNER JOIN friendship AS fs ON u.user_id = fs.friend_id WHERE fs.user_id = $1';
+      const query = 'SELECT friend_id, first_name, last_name, thumbnail, follower_count, following_count FROM users AS u INNER JOIN friendship AS fs ON u.user_id = fs.friend_id WHERE fs.user_id = $1';
       const values = [user_id];
       client.release();
       return client.query(query, values);
