@@ -24,6 +24,13 @@ module.exports = {
   },
 
   putEditProfile: async (req, res) => {
+    Object.keys(req.body).forEach(key => {
+      console.log(req.body[key]);
+      if (req.body[key] === 'undefined') {
+        req.body[key] = null;
+      }
+    });
+
     const { user_id, first_name, last_name, age, snack, animal_type } = req.body;
 
     if (!req.query.user_id) {
@@ -32,7 +39,7 @@ module.exports = {
     }
 
     let photoData = await helpers.storePhoto(req);
-    let thumbnailUrl = photoData.Location;
+    let thumbnailUrl = photoData?.Location || null;
 
     return db
       .putEditProfile(user_id, first_name, last_name, age, snack, animal_type, thumbnailUrl)
