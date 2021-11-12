@@ -19,7 +19,8 @@ const getProfile = user_id => {
       client.release();
       return client.query(query, values);
     })
-    .catch(err => {
+    .catch((err) => {
+      console.log('err:', err)
       client.release();
       return null;
     });
@@ -58,13 +59,14 @@ const putEditProfile = (user_id, first_name, last_name, age, snack, animal_type,
 const getFriendsList = user_id => {
   return pool
     .connect()
-    .then(client => {
-      const query = 'SELECT friend_id, first_name, last_name, thumbnail, follower_count, following_count FROM users AS u INNER JOIN friendship AS fs ON u.user_id = fs.friend_id WHERE fs.user_id = $1';
+    .then((client) => {
+      const query = 'SELECT friend_id, first_name, last_name, thumbnail_url, follower_count, following_count FROM users AS u INNER JOIN friendship AS fs ON u.user_id = fs.friend_id WHERE fs.user_id = $1';
       const values = [user_id];
       client.release();
       return client.query(query, values);
     })
-    .catch(err => {
+    .catch((err) => {
+      console.log('err:', err)
       client.release();
       return null;
     });
@@ -79,7 +81,8 @@ const getSearchFriends = email => {
       client.release();
       return client.query(query, values);
     })
-    .catch(err => {
+    .catch((err) => {
+      console.log('err:', err)
       client.release();
       return null;
     });
