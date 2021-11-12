@@ -20,6 +20,7 @@ const getProfile = (user_id) => {
       return client.query(query, values);
     })
     .catch((err) => {
+      console.log('err:', err)
       client.release();
       return null;
     });
@@ -35,6 +36,7 @@ const putEditProfile = (user_id, first_name, last_name, age, snack, animal_type,
       return client.query(query, values);
     })
     .catch((err) => {
+      console.log('err:', err)
       client.release();
       return null;
     });
@@ -50,6 +52,7 @@ const getFriendsList = (user_id) => {
       return client.query(query, values);
     })
     .catch((err) => {
+      console.log('err:', err)
       client.release();
       return null;
     });
@@ -66,6 +69,7 @@ const getSearchFriends = (email) => {
       return client.query(query, values);
     })
     .catch((err) => {
+      console.log('err:', err)
       client.release();
       return null;
     });
@@ -90,6 +94,7 @@ const friendFollow = (user_id, friend_id) => {
           return client.query(query3, values3);
         })
         .catch((err) => {
+          console.log('err:', err)
           client.release();
           return null;
         });
@@ -115,6 +120,7 @@ const friendUnfollow = (user_id, friend_id) => {
           return client.query(query3, values3);
         })
         .catch((err) => {
+          console.log('err:', err)
           client.release();
           return null;
         });
