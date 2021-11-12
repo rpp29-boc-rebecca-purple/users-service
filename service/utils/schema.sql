@@ -13,7 +13,7 @@ CREATE TABLE users (
     animal_type varchar,
     follower_count int not null default 0,
     following_count int not null default 0,
-    thumbnail bytea,
+    thumbnail_url bytea,
     oauth boolean default false,
     password_hash varchar
 );

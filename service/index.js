@@ -29,7 +29,7 @@ const putEditProfile = (user_id, first_name, last_name, age, snack, animal_type,
   return pool
     .connect()
     .then((client) => {
-      const query = 'UPDATE users SET first_name = $2, last_name = $3, age = $4, snack = $5, animal_type = $6, thumbnail = $7 WHERE user_id = $1';
+      const query = 'UPDATE users SET first_name = $2, last_name = $3, age = $4, snack = $5, animal_type = $6, thumbnail_url = $7 WHERE user_id = $1';
       const values = [user_id, first_name, last_name, age, snack, animal_type, thumbnail];
       client.release();
       return client.query(query, values);

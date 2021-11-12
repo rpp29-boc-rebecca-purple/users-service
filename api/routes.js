@@ -1,5 +1,16 @@
 const router = require('express').Router();
 const controllers = require('./controllers');
+const multer = require('multer');
+const helpers = require('./helpers');
+const memStorage = multer.memoryStorage();
+
+const upload = multer({
+  storage: memStorage,
+  limits: {
+    fileSize: 6000000
+  },
+  fileFilter: helpers.filefilter
+});
 
 /// USER ROUTES ///
 
@@ -7,7 +18,7 @@ const controllers = require('./controllers');
 router.get('/user/', controllers.getProfile);
 
 // PUT request to update the user profile (provided userID must match currently logged in user)
-router.put('/user/edit', controllers.putEditProfile);
+router.put('/user/edit', upload.single('photo'), controllers.putEditProfile);
 
 /// FRIEND ROUTES ///
 
